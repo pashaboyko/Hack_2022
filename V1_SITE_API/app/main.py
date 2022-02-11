@@ -55,6 +55,9 @@ def image_read_histogram():
     if request.method == 'POST':
         if 'file1' not in request.files:
             return 'there is no file1 in form!'
+        if request.files['file1'].filename == '':
+            return 'there is no file1 in form!'
+
 
         iter_num = randrange(1000)
         img = Image.open(request.files['file1'])
@@ -172,5 +175,3 @@ if __name__ == "__main__":
     log = logg.get_log("Web-server")
 
     app.run(debug=False, host='0.0.0.0', port=3067)
-
-    
