@@ -6,7 +6,7 @@
 
 # Рішення:
 
-# V1 - версія Flask server з моделью (HTML and API)
+# V1 - версія Flask server з моделью (HTML and API) *CSS file was loaded from Internet and wasn’t created by team
 Запустили для прикладу AWS instance і там розвернули docker 
 
 ## Тестувати  V1
