@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     log = logg.setup_logging('Service')
     log = logg.get_log("Service_for_load_video")
-    video_name = 'train.mp4'
+    video_name = 'video.mp4'
     vidcap = cv2.VideoCapture('video/'+video_name)
     success, image = vidcap.read()
     count = 0
