@@ -72,7 +72,7 @@ def image_read_histogram():
         plt.hist(predict[0], bins=len(predict[0]))
         url = f'./static/images/new_plot{iter_num}.png'
         plt.savefig(url)
-
+        plt.clf()
         return render_template("tables2.html", results=results, url=url)
 
     return render_template("image.html")
