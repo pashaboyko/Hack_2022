@@ -69,10 +69,27 @@ def image_read_histogram():
                 results.append(Result(iter, result))
             iter = iter + 250
 
-        plt.hist(predict[0], bins=len(predict[0]))
+        predict_hist = [res.result for res in results]
+        x_tick = [f'{res.start}-{res.finish}' for res in results]
+
+        # X-axis values
+        x = x_tick
+
+        # Y-axis values
+        y = predict_hist
+
+        # Function to plot
+        plt.figure(figsize=(10, 10))
+        plt.bar(x, y)
+        # Function add a legend
+        plt.legend(['count elements'])
+        plt.xticks(rotation=45, ha='right', va='top')
+
         url = f'./static/images/new_plot{iter_num}.png'
+
         plt.savefig(url)
         plt.clf()
+
         return render_template("tables2.html", results=results, url=url)
 
     return render_template("image.html")
@@ -155,3 +172,5 @@ if __name__ == "__main__":
     log = logg.get_log("Web-server")
 
     app.run(debug=False, host='0.0.0.0', port=3067)
+
+    
