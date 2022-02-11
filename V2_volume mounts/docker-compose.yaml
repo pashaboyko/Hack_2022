@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  predict:
+    build: .
+    volumes:
+    - /Users/pavloboiko/video:/usr/src/app/video
+    - /Users/pavloboiko/result:/usr/src/app/result
