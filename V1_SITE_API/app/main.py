@@ -1,9 +1,13 @@
 import os
+from random import randrange
+
 import logg
 import ssl
 import cv2
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
+import zipfile
 
 from flask import Flask, render_template, request
 from PIL import Image
@@ -20,7 +24,7 @@ else:
 
 log = None
 app = Flask(__name__)
-path_best_model = './best_model.h5'
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -45,6 +49,33 @@ def image_read():
 
     return render_template("image.html")
 
+
+@app.route('/histogram', methods=['GET', 'POST'])
+def image_read_histogram():
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            return 'there is no file1 in form!'
+
+        iter_num = randrange(1000)
+        img = Image.open(request.files['file1'])
+        img = np.array(img)
+        predict = predict_result(img)
+        iter = 0
+        results = []
+        for result in list(predict[0]):
+            if iter == 0:
+                results.append(Result(50, result, 250))
+            else:
+                results.append(Result(iter, result))
+            iter = iter + 250
+
+        plt.hist(predict[0], bins=len(predict[0]))
+        url = f'./static/images/new_plot{iter_num}.png'
+        plt.savefig(url)
+
+        return render_template("tables2.html", results=results, url=url)
+
+    return render_template("image.html")
 
 @app.route('/api/v1/resources/image', methods=['POST'])
 def api_image():
@@ -94,7 +125,7 @@ def predict_result(img):
     frame = np.array([frame])
 
     predicted = (loaded_model_1.predict(frame) + loaded_model_2.predict(frame)) / 2
-    predicted = predicted.astype(int)
+    predicted = np.round(predicted, 0)
 
     return predicted
 
@@ -105,10 +136,20 @@ if __name__ == "__main__":
     if not os.path.exists(log_directory):
         os.makedirs(log_directory)
 
-    path_best_model = './best_model.h5'
+    images_directory = './static/images'
+    if not os.path.exists(images_directory):
+        os.makedirs(images_directory)
 
-    loaded_model_1 = tf.keras.models.load_model(path_best_model)
-    loaded_model_2 = tf.keras.models.load_model(path_best_model)
+    path_best_model1 = './Copy of best_model_conv.h5'
+
+    path_to_zip_file = 'Copy of best_model_resne_augm.h5.zip'
+
+    with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
+        zip_ref.extractall('./')
+    path_best_model2 = './Copy of best_model_resne_augm.h5'
+
+    loaded_model_1 = tf.keras.models.load_model(path_best_model1)
+    loaded_model_2 = tf.keras.models.load_model(path_best_model2)
 
     log = logg.setup_logging('Server')
     log = logg.get_log("Web-server")
