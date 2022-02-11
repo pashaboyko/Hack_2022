@@ -1,21 +1,24 @@
 # ![Magnus Sysanus](example/logo_team.png)
-# Magnus Sysanus
+# Team: Magnus Sysanus
 
 
-# Завдання:
+# Завдання: Granulogram building
 
 
 # V1 - версія Flask server з моделлю (HTML and API)
-*CSS file was loaded from Internet and wasn’t created by team
+*CSS file was loaded from Internet and wasn’t created by team </br>
 Запустили для прикладу AWS instance і там розвернули docker 
 
 ## Тестувати  V1
-#### [Посилання](http://18.221.119.206:3067/)
-Завантаження зображення
-![Фото тесту](example/web1.png)
-Приклад результату
-![Фото тесту](example/web2.png)
+#### [Посилання без гістограми](http://18.221.119.206:3067/)
+#### [Посилання з гістограмою](http://18.221.119.206:3067/histogram)
 
+Завантаження зображення            |  Приклад результату 
+:-------------------------:|:-------------------------:
+![Фото тесту](example/web1.png) |  ![Фото тесту](example/web2.png)
+
+ ### Гістограма
+ ![Фото тесту](example/web3.png)
 
 #### Comand line request
 
