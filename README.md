@@ -46,6 +46,44 @@ python3 main.py
 ```
 
 
-# V2
+# V2 Docker-compose with mount volume 
+Завантажує з папки video, там повинно бути файл 'video.mp4'
+в папку results завантажує результат
+
+Зроблено поки, що тільки одне відео може читати сккріпт.  Відео обов'язково названо - 'video.mp4'
+
+# Запуск
+
+## Docker-compose
+
+```
+cd V2
+mkdir video
+mkdir result
+
+# завантажуємо в папку video відео, яке ми хочемо перевірити
+# або копіємо з цього репозиторію - /V2_volume mounts/app/video/train.mp4 в створену папку video
+
+cd V2_volume mounts
+
+# змінюємо в docker-compose.yaml файлі volumes (host path:docker path)
+
+docker-compose build 
+docker-compose up
+
+cd ../result
+# бачимо результати 
+```
+
+## Python3
 
 
+```
+cd V2_volume mounts/app
+
+# завантажуємо в папку video відео, яке ми хочемо перевірити (в V2_volume mounts/app/video)
+
+python3 main.py
+
+# результати в V2_volume mounts/app/results
+```
