@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     path_best_model1 = './Copy of best_model_conv.h5'
 
-    path_to_zip_file = 'Copy of best_model_resne_augm.h5.zip'
+    path_to_zip_file = './Copy of best_model_resne_augm.h5.zip'
 
     with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
         zip_ref.extractall('./')
