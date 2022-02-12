@@ -144,7 +144,12 @@ def predict_result(img):
     frame = cv2.resize(frame, DIM, interpolation=cv2.INTER_AREA) / 255.0
     frame = np.array([frame])
 
-    predicted = (loaded_model_1.predict(frame) + loaded_model_2.predict(frame)) / 2
+    # predicted = (loaded_model_1.predict(frame) + loaded_model_2.predict(frame)) / 2
+    # predicted = np.round(predicted, 0)
+
+    value_1 = 1 / 28.2
+    value_2 = 1 / 17.39
+    predicted = (value_1 * loaded_model_1.predict(frame) + value_2 * loaded_model_2.predict(frame) ) / (value_1 + value_2)
     predicted = np.round(predicted, 0)
 
     return predicted
